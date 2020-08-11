@@ -9,22 +9,19 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.Unmarshaller;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.io.StringReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
 @Path("/weather")
 public class WeatherServiceImplementation implements WeatherService {
-    private final String API_KEY = "afef534d165510229973697d4b00773d";
+    private final String API_KEY = "a8b781e23a91ec8e817a5f0be95f4974";
 
+    @Override
     @GET
     @Path("/get/{dayCountingFromToday}&{lat}&{lon}")
     @Produces(MediaType.APPLICATION_XML)
-    @Override
     public Weather getWeather(
             @PathParam("dayCountingFromToday") int dayCountingFromToday, @PathParam("lat") double lat, @PathParam("lon") double lon
     ) {
@@ -43,7 +40,7 @@ public class WeatherServiceImplementation implements WeatherService {
                     "&units=metric" +
                     "&appid=" + API_KEY;
 
-            URL url = new URL("urlComp");
+            URL url = new URL(urlComp);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");
             con.setRequestProperty("Accept", "application/json");
@@ -54,7 +51,7 @@ public class WeatherServiceImplementation implements WeatherService {
 
             BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
             String inputLine;
-            StringBuffer content = new StringBuffer();
+            StringBuilder content = new StringBuilder();
             while ((inputLine = in.readLine()) != null) {
                 content.append(inputLine);
             }
@@ -70,10 +67,10 @@ public class WeatherServiceImplementation implements WeatherService {
         return weather;
     }//callOpenWeatherMapAPI
 
-    private Weather convertJSONtoWeatherInstance(int daysCountingFromToday, double lat, double lon, String json) {
+    private Weather convertJSONtoWeatherInstance(int dayCountingFromToday, double lat, double lon, String json) {
         JSONObject obj = new JSONObject(json);
         JSONArray array = obj.getJSONArray("daily");
-        JSONObject dayObj = array.getJSONObject(daysCountingFromToday);
+        JSONObject dayObj = array.getJSONObject(dayCountingFromToday);
 
         Weather weather = new Weather();
         weather.setLat(lat); weather.setLon(lon);
