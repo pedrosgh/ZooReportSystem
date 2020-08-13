@@ -33,7 +33,7 @@
       <scope>provided</scope>
     </dependency>
 
-    <!-- JAX Stuff -->
+    <!-- JAX-RS Stuff -->
     <dependency>
       <groupId>org.glassfish.jersey.core</groupId>
       <artifactId>jersey-server</artifactId>

@@ -14,14 +14,18 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+/*
+TODO: Find cause for "Error 500 - Internal Server Error"
+ */
+
 @Path("/weather")
+@Produces(MediaType.APPLICATION_XML)
 public class WeatherServiceImplementation implements WeatherService {
     private final String API_KEY = "a8b781e23a91ec8e817a5f0be95f4974";
 
     @Override
     @GET
-    @Path("/get/{dayCountingFromToday}&{lat}&{lon}")
-    @Produces(MediaType.APPLICATION_XML)
+    @Path("/d={dayCountingFromToday}&lat={lat}&lon={lon}")
     public Weather getWeather(
             @PathParam("dayCountingFromToday") int dayCountingFromToday, @PathParam("lat") double lat, @PathParam("lon") double lon
     ) {
@@ -29,7 +33,6 @@ public class WeatherServiceImplementation implements WeatherService {
     }//getWeather
 
     //http://localhost:2020/WeatherService-1.0-SNAPSHOT/weather/get/2&38.71667&-9.13333
-
     private Weather callOpenWeatherMapAPI(int dayCountingFromToday, double lat, double lon) {
         Weather weather = null;
         try {
