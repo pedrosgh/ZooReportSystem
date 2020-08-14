@@ -4,7 +4,6 @@ import models.*;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import java.util.ArrayList;
 
 @Path("/animal")
 @Produces(MediaType.APPLICATION_XML)
@@ -21,17 +20,19 @@ public class AnimalServiceImplementation implements AnimalService{
 
         Animal a;
         switch (species) {
-            case "Elephant": a = new Elephant();
-            case "Giraffe": a = new Giraffe();
-            case "Lion": a = new Lion();
-            case "Monkey": a = new Monkey();
-            default: a = new Tiger(); //case "Tiger"
+            case "Elephant": a = new Elephant(); break;
+            case "Giraffe": a = new Giraffe(); break;
+            case "Lion": a = new Lion(); break;
+            case "Monkey": a = new Monkey(); break;
+            default: a = new Tiger(); break; //case "Tiger"
         }
         a.setReportId(rId); a.setName(name); a.setAge(age); a.setOrigin(origin);
         return a;
     }//newAnimal
 
-    @Override
+    //http://localhost:2020/AnimalService-1.0-SNAPSHOT/animal/rid=1&s=Lion&n=Rei&a=8&origin=Africa
+
+  /*  @Override
     @GET
     @Path("")
     public Animal getAnimal(int id) {
@@ -50,5 +51,5 @@ public class AnimalServiceImplementation implements AnimalService{
     @Path("")
     public String doTrick(int id) {
         return "Oi";
-    }
+    }*/
 }

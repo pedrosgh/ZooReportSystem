@@ -1,5 +1,8 @@
 package models;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public abstract class Animal {
 
     private int reportId;
