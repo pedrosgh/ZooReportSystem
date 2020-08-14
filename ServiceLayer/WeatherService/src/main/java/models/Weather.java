@@ -1,14 +1,15 @@
 package models;
 
-import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class Weather {
-    @XmlAttribute
     private int id; //instance id
-    private double lat, lon; //location
-    private int minTemp, maxTemp, avTemp; //minimum, maximum and average temperatures
+    private double lat;
+    private double lon; //location
+    private int minTemp;
+    private int maxTemp;
+    private int avTemp; //minimum, maximum and average temperatures
     private boolean rain; //rain prediction
 
     public int getId() {

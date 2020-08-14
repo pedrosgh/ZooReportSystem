@@ -14,10 +14,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-/*
-TODO: Find cause for "Error 500 - Internal Server Error"
- */
-
 @Path("/weather")
 @Produces(MediaType.APPLICATION_XML)
 public class WeatherServiceImplementation implements WeatherService {
@@ -74,11 +70,15 @@ public class WeatherServiceImplementation implements WeatherService {
         JSONObject obj = new JSONObject(json);
         JSONArray array = obj.getJSONArray("daily");
         JSONObject dayObj = array.getJSONObject(dayCountingFromToday);
+        JSONArray array2 = dayObj.getJSONArray("weather");
+        JSONObject rainObj = array2.getJSONObject(0);
 
         Weather weather = new Weather();
         weather.setLat(lat); weather.setLon(lon);
         weather.setMinTemp((int) Math.round(dayObj.getJSONObject("temp").getDouble("min")));
         weather.setMaxTemp((int) Math.round(dayObj.getJSONObject("temp").getDouble("max")));
+        if( rainObj.getString("main").equals("Rain") ) weather.setRain(true);
+
         return weather;
     }//convertJSONtoWeatherInstance
 
