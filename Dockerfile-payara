@@ -1,0 +1,5 @@
+FROM payara/server-full:latest
+
+# Setup configuration
+USER payara
+COPY ServiceLayer/AnimalService/target/AnimalService-1.0-SNAPSHOT/WEB-INF/lib/postgresql.jar /opt/payara/appserver/glassfish/domains/production/lib
