@@ -1,6 +1,7 @@
 package service;
 
 import models.*;
+import persistence.AnimalDAO;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -8,6 +9,7 @@ import javax.ws.rs.core.MediaType;
 @Path("/animal")
 @Produces(MediaType.APPLICATION_XML)
 public class AnimalServiceImplementation implements AnimalService{
+
     @Override
     @POST
     @Path("/rid={rid}&s={species}&n={name}&a={age}&origin={origin}")
@@ -27,6 +29,7 @@ public class AnimalServiceImplementation implements AnimalService{
             default: a = new Tiger(); break; //case "Tiger"
         }
         a.setReportId(rId); a.setName(name); a.setAge(age); a.setOrigin(origin);
+        AnimalDAO.newAnimal(a);
         return a;
     }//newAnimal
 
