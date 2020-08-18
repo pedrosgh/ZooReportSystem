@@ -29,7 +29,8 @@ public class AnimalServiceImplementation implements AnimalService{
             default: a = new Tiger(); break; //case "Tiger"
         }
         a.setReportId(rId); a.setName(name); a.setAge(age); a.setOrigin(origin);
-        AnimalDAO.newAnimal(a);
+        int animalid = AnimalDAO.newAnimal(a);
+        a.setId(animalid);
         return a;
     }//newAnimal
 
