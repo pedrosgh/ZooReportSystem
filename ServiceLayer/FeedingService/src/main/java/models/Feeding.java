@@ -1,5 +1,8 @@
 package models;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class Feeding {
     //Food prices - will later be placed inside a DB rather than stored here
     private final double MEAT_PRICE = 6; // €/Kg
@@ -122,24 +125,25 @@ public class Feeding {
     }
 
     private double calculateLionFeedingCost() {
-
+        if(nLions == 0) return 0;
         double meatCosts = nLions * (50 * hungerVariation) * MEAT_PRICE;
         double fishCosts = nLions * (70 * hungerVariation) * FISH_PRICE;
         double fruitCosts = nLions * (100 * hungerVariation) * FRUIT_PRICE;
 
         if(meatCosts < fishCosts && meatCosts < fruitCosts) {
-            meatAmount = 50 * hungerVariation;
+            meatAmount += 50 * hungerVariation;
             return meatCosts;
         } else if (fishCosts < meatCosts && fishCosts < fruitCosts) {
-            fishAmount = 70 * hungerVariation;
+            fishAmount += 70 * hungerVariation;
             return fishCosts;
         } else {
-            fruitAmount = 100 * hungerVariation;
+            fruitAmount += 100 * hungerVariation;
             return fruitCosts;
         }
     }
 
     private double calculateTigerFeedingCost() {
+        if(nTigers == 0) return 0;
         double meatCosts = nTigers * (50/2 * hungerVariation) * MEAT_PRICE;
         double fishCosts = nTigers * (70/2 * hungerVariation) * FISH_PRICE;
         double fruitCosts = nTigers * (100/2 * hungerVariation) * FRUIT_PRICE;
@@ -157,11 +161,12 @@ public class Feeding {
     }
 
     private double calculateMonkeyFeedingCost() {
+        if(nMonkeys == 0) return 0;
         double fruitCosts = nMonkeys * (25 * hungerVariation) * FRUIT_PRICE;
         double leafCosts = nMonkeys * (20 * hungerVariation) * LEAF_PRICE;
 
         if(leafCosts < fruitCosts) {
-            leafAmount = 20 * hungerVariation;
+            leafAmount += 20 * hungerVariation;
             return leafCosts;
         } else {
             fruitAmount += 25 * hungerVariation;
@@ -170,6 +175,7 @@ public class Feeding {
     }
 
     private double calculateGiraffeFeedingCost() {
+        if(nGiraffes == 0) return 0;
         double fruitCosts = nGiraffes * (Math.pow(25, 2) * hungerVariation) * FRUIT_PRICE;
         double leafCosts = nGiraffes * (Math.pow(20, 2) * hungerVariation) * LEAF_PRICE;
 
@@ -183,6 +189,7 @@ public class Feeding {
     }
 
     private double calculateElephantFeedingCost() {
+        if(nElephants == 0) return 0;
         double fruitCosts = nGiraffes * (Math.pow(25, 2) * 2 * hungerVariation) * FRUIT_PRICE;
         double leafCosts = nGiraffes * (Math.pow(20, 2) * 2 * hungerVariation) * LEAF_PRICE;
 
