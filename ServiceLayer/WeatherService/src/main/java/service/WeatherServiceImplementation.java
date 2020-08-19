@@ -77,6 +77,7 @@ public class WeatherServiceImplementation implements WeatherService {
         weather.setLat(lat); weather.setLon(lon);
         weather.setMinTemp((int) Math.round(dayObj.getJSONObject("temp").getDouble("min")));
         weather.setMaxTemp((int) Math.round(dayObj.getJSONObject("temp").getDouble("max")));
+        weather.setAvTemp((int) Math.round((weather.getMaxTemp() + weather.getMinTemp())/2));
         if( rainObj.getString("main").equals("Rain") ) weather.setRain(true);
 
         return weather;
